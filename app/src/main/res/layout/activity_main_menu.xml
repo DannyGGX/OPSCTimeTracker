@@ -7,4 +7,70 @@
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity">
 
+    <Button
+        android:id="@+id/btn_Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="17dp"
+        android:drawableTop="@drawable/profile_icon"
+        android:text="Profile"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Settings"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_Calender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="20dp"
+        android:drawableTop="@drawable/calender_icon"
+        android:text="Calender"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Reports"
+        app:layout_constraintStart_toStartOf="@+id/btn_Reports" />
+
+    <Button
+        android:id="@+id/btn_Entries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="19dp"
+        android:drawableTop="@drawable/entries_icon"
+        android:text="Entries"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Teams"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_Teams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="27dp"
+        android:drawableTop="@drawable/teams_icon"
+        android:text="Teams"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_Reports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginBottom="26dp"
+        android:drawableTop="@drawable/report_icon"
+        android:text="Reports"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_Teams" />
+
+    <Button
+        android:id="@+id/btn_Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="29dp"
+        android:drawableTop="@drawable/settings_icon"
+        android:text="Settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
