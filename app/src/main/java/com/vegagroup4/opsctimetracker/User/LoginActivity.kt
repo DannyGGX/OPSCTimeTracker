@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.vegagroup4.opsctimetracker.MainMenuActivity
 import com.vegagroup4.opsctimetracker.R
 import com.vegagroup4.opsctimetracker.databinding.ActivityLoginBinding
+import java.time.LocalDate
 
 class LoginActivity : AppCompatActivity()
 {
@@ -85,6 +86,7 @@ class LoginActivity : AppCompatActivity()
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@LoginActivity, "Database error: ${error.message}", Toast.LENGTH_LONG).show()
             }
+
 
         })
     }
