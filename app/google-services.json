@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "323571111512",
+    "project_id": "opsc-time-tracker",
+    "storage_bucket": "opsc-time-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323571111512:android:1d0d855ffcab568bccdc2d",
+        "android_client_info": {
+          "package_name": "com.vegagroup4.opsctimetracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcn7Pw9g-g_o__6oz4CW7mcgqWArBkQmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
