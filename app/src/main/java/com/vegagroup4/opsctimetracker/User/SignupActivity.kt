@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.vegagroup4.opsctimetracker.MainActivity
+import com.vegagroup4.opsctimetracker.MainMenuActivity
 import com.vegagroup4.opsctimetracker.R
 import com.vegagroup4.opsctimetracker.databinding.ActivitySignupBinding
 
@@ -67,7 +67,7 @@ class SignupActivity : AppCompatActivity() {
                     val userData = UserData(id, username, password)
                     databaseRef.child(id!!).setValue(userData)
                     Toast.makeText(this@SignupActivity, "successfully signed up!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@SignupActivity, MainActivity::class.java))
+                    startActivity(Intent(this@SignupActivity, MainMenuActivity::class.java))
                     finish()
                 }
                 else

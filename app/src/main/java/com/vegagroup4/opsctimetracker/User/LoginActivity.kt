@@ -12,7 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.vegagroup4.opsctimetracker.MainActivity
+import com.vegagroup4.opsctimetracker.MainMenuActivity
 import com.vegagroup4.opsctimetracker.R
 import com.vegagroup4.opsctimetracker.databinding.ActivityLoginBinding
 
@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity()
                         if (userData != null && userData.password == password)
                         {
                             Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
                             finish()
                             return
                         }
