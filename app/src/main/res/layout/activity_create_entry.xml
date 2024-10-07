@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="24dp" />
 
     <EditText
         android:id="@+id/pt_TitleInput"
@@ -28,7 +28,8 @@
         app:layout_constraintTop_toBottomOf="@id/tv_Heading"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp" />
 
     <EditText
         android:id="@+id/pt_DescriptionInput"
@@ -39,7 +40,8 @@
         app:layout_constraintTop_toBottomOf="@id/pt_TitleInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp" />
 
     <Spinner
         android:id="@+id/spinner_Category"
@@ -48,7 +50,8 @@
         app:layout_constraintTop_toBottomOf="@id/pt_DescriptionInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp" />
 
     <EditText
         android:id="@+id/pt_NewCategoryInput"
@@ -58,7 +61,8 @@
         app:layout_constraintTop_toBottomOf="@id/spinner_Category"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp" />
 
     <Button
         android:id="@+id/btn_AddCategory"
@@ -67,6 +71,7 @@
         android:text="Add Category"
         app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
     <Button
@@ -75,17 +80,19 @@
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/home_icon"
         android:text="Home"
-        app:layout_constraintTop_toBottomOf="@id/btn_AddCategory"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_margin="16dp"/>
 
     <Button
         android:id="@+id/btn_CreateEntry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create Entry"
-        app:layout_constraintTop_toBottomOf="@id/btn_Home"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="1"
+        android:layout_marginBottom="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
