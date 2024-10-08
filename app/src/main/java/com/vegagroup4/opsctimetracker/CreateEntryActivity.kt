@@ -1,10 +1,9 @@
 package com.vegagroup4.opsctimetracker
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,10 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 class CreateEntryActivity : AppCompatActivity() {
     private lateinit var titleInput: EditText
     private lateinit var descriptionInput: EditText
-    private lateinit var projectInput: EditText
-    private lateinit var clientInput: EditText
-    private lateinit var minTimeInput: EditText
-    private lateinit var maxTimeInput: EditText
     private lateinit var categorySpinner: Spinner
     private lateinit var newCategoryInput: EditText
     private lateinit var createEntryButton: Button
@@ -32,57 +27,45 @@ class CreateEntryActivity : AppCompatActivity() {
 
         titleInput = findViewById(R.id.pt_TitleInput)
         descriptionInput = findViewById(R.id.pt_DescriptionInput)
-        projectInput = findViewById(R.id.pt_Project)
-        clientInput = findViewById(R.id.pt_Client)
-        minTimeInput = findViewById(R.id.pt_MinTimeInput)
-        maxTimeInput = findViewById(R.id.pt_MaxTimeInput)
         categorySpinner = findViewById(R.id.spinner_Category)
         newCategoryInput = findViewById(R.id.pt_NewCategoryInput)
         createEntryButton = findViewById(R.id.btn_CreateEntry)
         homeButton = findViewById(R.id.btn_Home)
         addCategoryButton = findViewById(R.id.btn_AddCategory)
 
-        // Initialize default categories
+        // Initialize categories
         categories.add("Work")
         categories.add("Personal")
         categories.add("Other")
 
-        // Set up the spinner adapter for categories
+        // Set up the spinner adapter
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner.adapter = adapter
 
+        // Disable the create entry button initially
+        createEntryButton.isEnabled = false
+
+        // Watch for changes in title, description, and category selection to enable the button
+        addTextWatchers()
+
         createEntryButton.setOnClickListener {
             // Handle entry creation logic here
+            // Get title, description, and selected category
             val title = titleInput.text.toString()
             val description = descriptionInput.text.toString()
-            val project = projectInput.text.toString()
-            val client = clientInput.text.toString()
-            val minTime = minTimeInput.text.toString().toIntOrNull() ?: 0
-            val maxTime = maxTimeInput.text.toString().toIntOrNull() ?: 0
             val selectedCategory = categorySpinner.selectedItem.toString()
 
-            // Ensure maxTime is greater than minTime
-            if (maxTime < minTime) {
-                maxTimeInput.error = "Max time should be greater than min time"
-                return@setOnClickListener
-            }
+            // Add your logic to save the entry here
 
-            // Add logic to save or process the entry
-            // Use the title, description, project, client, minTime, maxTime, and selectedCategory
-
-            // Optionally clear the input fields after entry creation
+            // Optionally clear inputs after creation
             titleInput.text.clear()
             descriptionInput.text.clear()
-            projectInput.text.clear()
-            clientInput.text.clear()
-            minTimeInput.text.clear()
-            maxTimeInput.text.clear()
         }
 
         homeButton.setOnClickListener {
             // Navigate back to MainMenuActivity
-            finish() // Close the current activity and return to the previous one
+            finish() // Close current activity to return to the previous one
         }
 
         addCategoryButton.setOnClickListener {
@@ -102,9 +85,54 @@ class CreateEntryActivity : AppCompatActivity() {
         if (newCategory.isNotEmpty() && !categories.contains(newCategory)) {
             categories.add(newCategory)
             (categorySpinner.adapter as ArrayAdapter<String>).notifyDataSetChanged()
-            newCategoryInput.text.clear() // Clear the input field after adding the category
+            newCategoryInput.text.clear() // Clear the input after adding
         } else {
-            // Optionally show a message if the category already exists or is empty
+            // Optionally show a message that the category already exists
         }
+    }
+
+    // Function to enable/disable the Create Entry button based on input validation
+    private fun addTextWatchers() {
+        val textWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                validateInput()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        }
+
+        // Add text watchers to the relevant input fields
+        titleInput.addTextChangedListener(textWatcher)
+        descriptionInput.addTextChangedListener(textWatcher)
+        newCategoryInput.addTextChangedListener(textWatcher)
+
+        // Set up the spinner's onItemSelectedListener
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: android.view.View?,
+                position: Int,
+                id: Long
+            ) {
+                validateInput()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                validateInput()
+            }
+        }
+    }
+
+    // Input validation function to enable/disable Create Entry button
+    private fun validateInput() {
+        // Get current input values
+        val title = titleInput.text.toString().trim()
+        val description = descriptionInput.text.toString().trim()
+        val selectedCategory = categorySpinner.selectedItem.toString()
+
+        // Check if the required fields are filled out
+        createEntryButton.isEnabled = title.isNotEmpty() && description.isNotEmpty() && selectedCategory.isNotEmpty()
     }
 }
