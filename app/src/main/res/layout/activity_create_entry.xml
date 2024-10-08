@@ -9,9 +9,14 @@
 
     <!-- ScrollView to wrap the content -->
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,197 +30,258 @@
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/home_icon"
                 android:text="Home"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- Page Heading -->
             <TextView
                 android:id="@+id/tv_Heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Create New Entry"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/btn_Home"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_Home" />
 
             <!-- Title Input -->
             <TextView
                 android:id="@+id/tv_TitleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Title"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_Heading"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintTop_toBottomOf="@id/tv_Heading" />
 
             <EditText
                 android:id="@+id/pt_TitleInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Enter Title"
                 android:inputType="text"
-                app:layout_constraintTop_toBottomOf="@id/tv_TitleLabel"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_TitleLabel" />
 
             <!-- Description Input -->
             <TextView
                 android:id="@+id/tv_DescriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Description"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/pt_TitleInput"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintTop_toBottomOf="@id/pt_TitleInput" />
 
             <EditText
                 android:id="@+id/pt_DescriptionInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Enter Description"
                 android:inputType="textMultiLine"
-                app:layout_constraintTop_toBottomOf="@id/tv_DescriptionLabel"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_DescriptionLabel" />
 
             <!-- Project Name Input -->
             <TextView
                 android:id="@+id/tv_ProjectLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Project Name"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/pt_DescriptionInput"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintTop_toBottomOf="@id/pt_DescriptionInput" />
 
             <EditText
                 android:id="@+id/pt_Project"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Enter Project Name"
-                app:layout_constraintTop_toBottomOf="@id/tv_ProjectLabel"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ProjectLabel" />
 
             <!-- Client Name Input -->
             <TextView
                 android:id="@+id/tv_ClientLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Client Name"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/pt_Project"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintTop_toBottomOf="@id/pt_Project" />
 
             <EditText
                 android:id="@+id/pt_Client"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Enter Client Name"
-                app:layout_constraintTop_toBottomOf="@id/tv_ClientLabel"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_ClientLabel" />
 
             <!-- Minimum Time Input -->
             <TextView
                 android:id="@+id/tv_MinTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Min Time (hours)"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/pt_Client"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintTop_toBottomOf="@id/pt_Client" />
 
             <EditText
                 android:id="@+id/pt_MinTimeInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Enter Minimum Time"
                 android:inputType="number"
-                app:layout_constraintTop_toBottomOf="@id/tv_MinTimeLabel"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_MinTimeLabel" />
 
             <!-- Maximum Time Input -->
             <TextView
                 android:id="@+id/tv_MaxTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Max Time (hours)"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/pt_MinTimeInput"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintTop_toBottomOf="@id/pt_MinTimeInput" />
 
             <EditText
                 android:id="@+id/pt_MaxTimeInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Enter Maximum Time"
                 android:inputType="number"
-                app:layout_constraintTop_toBottomOf="@id/tv_MaxTimeLabel"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_MaxTimeLabel" />
 
             <!-- Category Spinner -->
             <Spinner
                 android:id="@+id/spinner_Category"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/pt_MaxTimeInput"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pt_MaxTimeInput" />
 
             <!-- New Category Input -->
             <EditText
                 android:id="@+id/pt_NewCategoryInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Enter New Category"
                 android:inputType="text"
-                app:layout_constraintTop_toBottomOf="@id/spinner_Category"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_Category" />
 
-            <!-- Add Category Button -->
             <Button
                 android:id="@+id/btn_AddCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Add Category"
-                app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="24dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput" />
 
-            <!-- Create Entry Button (placed below Add Category button) -->
+            <!-- Date TextView and Button -->
+            <TextView
+                android:id="@+id/tv_Date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="Select Date"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput" />
+
             <Button
-                android:id="@+id/btn_CreateEntry"
+                android:id="@+id/btn_SelectDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Entry"
-                app:layout_constraintTop_toBottomOf="@id/btn_AddCategory"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="Select Date"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="32dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_Date" />
+
+            <!-- Start Time TextView and Button -->
+            <TextView
+                android:id="@+id/tv_StartTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="Select Start Time"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_SelectDate" />
+
+            <Button
+                android:id="@+id/btn_StartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Start Time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_StartTime" />
+
+            <!-- End Time TextView and Button -->
+            <TextView
+                android:id="@+id/tv_EndTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="Select End Time"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_StartTime" />
+
+            <Button
+                android:id="@+id/btn_EndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select End Time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_EndTime" />
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/btn_Submit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Submit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_EndTime" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
