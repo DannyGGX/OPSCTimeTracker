@@ -2,6 +2,7 @@ package com.vegagroup4.opsctimetracker
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ class CreateEntryActivity : AppCompatActivity() {
     private lateinit var btnEndTime: Button
     private lateinit var btnSubmit: Button
     private lateinit var btnAddCategory: Button
+    private lateinit var btnHome: Button  // Home button
     private lateinit var tvDate: TextView
     private lateinit var tvStartTime: TextView
     private lateinit var tvEndTime: TextView
@@ -36,7 +38,7 @@ class CreateEntryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_entry) // Ensure this matches your layout file name
+        setContentView(R.layout.activity_create_entry)
 
         // Initialize Views
         btnSelectDate = findViewById(R.id.btn_SelectDate)
@@ -44,6 +46,7 @@ class CreateEntryActivity : AppCompatActivity() {
         btnEndTime = findViewById(R.id.btn_EndTime)
         btnSubmit = findViewById(R.id.btn_Submit)
         btnAddCategory = findViewById(R.id.btn_AddCategory)
+        btnHome = findViewById(R.id.btn_Home)  // Initialize Home button
         tvDate = findViewById(R.id.tv_Date)
         tvStartTime = findViewById(R.id.tv_StartTime)
         tvEndTime = findViewById(R.id.tv_EndTime)
@@ -69,6 +72,9 @@ class CreateEntryActivity : AppCompatActivity() {
 
         // Set listener for the Add Category button
         btnAddCategory.setOnClickListener { addCategory() }
+
+        // Handle Home button click
+        btnHome.setOnClickListener { navigateToHome() }
     }
 
     private fun showDatePickerDialog() {
@@ -113,23 +119,26 @@ class CreateEntryActivity : AppCompatActivity() {
         val maxTime = etMaxTime.text.toString()
         val selectedCategory = spinnerCategory.selectedItem.toString()
 
-        // Handle submission logic here (e.g., save the entry to the database or send it to another activity)
-        // For demonstration, just show a toast or log the values
         Toast.makeText(this, "Entry Submitted!", Toast.LENGTH_SHORT).show()
-        // Log.d("CreateEntryActivity", "Title: $title, Date: $selectedDate, Start Time: $selectedStartTime, End Time: $selectedEndTime")
     }
 
     private fun addCategory() {
         val newCategory = etNewCategory.text.toString()
 
-        // Add the new category if it's not empty and not already in the list
         if (newCategory.isNotEmpty() && !categoryList.contains(newCategory)) {
             categoryList.add(newCategory)
-            categoryAdapter.notifyDataSetChanged() // Notify the adapter to update the spinner
-            etNewCategory.text.clear() // Clear the input field
+            categoryAdapter.notifyDataSetChanged()
+            etNewCategory.text.clear()
             Toast.makeText(this, "Category added", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Category is empty or already exists", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun navigateToHome() {
+        // Navigate to home activity (replace MainActivity with the appropriate home screen activity)
+        val intent = Intent(this, MainMenuActivity::class.java)
+        startActivity(intent)
+        finish() // Close the current activity if needed
     }
 }
