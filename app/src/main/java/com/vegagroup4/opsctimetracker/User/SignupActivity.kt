@@ -66,6 +66,7 @@ class SignupActivity : AppCompatActivity() {
                     val id = databaseRef.push().key
                     val userData = UserData(id, username, password)
                     databaseRef.child(id!!).setValue(userData)
+                    UserManager.signIn(userData)
                     Toast.makeText(this@SignupActivity, "successfully signed up!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@SignupActivity, MainMenuActivity::class.java))
                     finish()

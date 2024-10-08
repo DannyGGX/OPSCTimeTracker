@@ -6,13 +6,13 @@ import kotlin.time.Duration
 
 data class EntryData
 (
-    var title: String? = null,
+    var title: String,
     var description: String? = null,
     var category: CategoryData,
-    var project: Project,
-    var client: Client,
-    var minTimeGoal: Duration,
-    var maxTimeGoal: Duration,
-    var startTime: DateTimeFormatter,
-    var endTime: DateTimeFormatter
+    var project: Project = Project(name = "None"),
+    var client: Client = Client(name = "None"),
+    var minTimeGoal: Int = 0,
+    var maxTimeGoal: Int = 0,
+    var startTime: DateTimeData,
+    var endTime: DateTimeData,
 )

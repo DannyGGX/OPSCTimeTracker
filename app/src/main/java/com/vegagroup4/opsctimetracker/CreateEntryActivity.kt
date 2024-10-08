@@ -8,10 +8,18 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.vegagroup4.opsctimetracker.Categories.CategoriesManager
+import com.vegagroup4.opsctimetracker.Categories.CategoryData
+import com.vegagroup4.opsctimetracker.Entries.Client
+import com.vegagroup4.opsctimetracker.Entries.DateTimeData
+import com.vegagroup4.opsctimetracker.Entries.EntriesManager
+import com.vegagroup4.opsctimetracker.Entries.EntryData
+import com.vegagroup4.opsctimetracker.Entries.Project
 import java.util.*
 
 class CreateEntryActivity : AppCompatActivity() {
@@ -34,12 +42,14 @@ class CreateEntryActivity : AppCompatActivity() {
     private lateinit var etNewCategory: EditText
     private lateinit var spinnerCategory: Spinner
 
+    private var selectedCategory: CategoryData? = null
+
     private lateinit var btnTakePhoto: Button
     private lateinit var imgPhoto: ImageView
 
     private var selectedDate: String = ""
-    private var selectedStartTime: String = ""
-    private var selectedEndTime: String = ""
+    private var selectedStartTime: DateTimeData = DateTimeData(0, 0, 0, 0, 0)
+    private var selectedEndTime: DateTimeData = DateTimeData(0, 0, 0, 0, 0)
 
     private val CAMERA_REQUEST_CODE = 100
     private val CAMERA_PERMISSION_CODE = 101
@@ -78,6 +88,15 @@ class CreateEntryActivity : AppCompatActivity() {
         categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList)
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerCategory.adapter = categoryAdapter
+        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parent?.getItemAtPosition(position)
+                selectedCategory = CategoriesManager.getInstance().getCategory(selectedItem.toString())
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedCategory = null
+            }}
+
 
         // Set click listeners
         btnSelectDate.setOnClickListener { showDatePickerDialog() }
@@ -143,6 +162,12 @@ class CreateEntryActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
             selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             tvDate.text = selectedDate
+            selectedStartTime.year = year
+            selectedStartTime.month = month
+            selectedStartTime.day = day
+            selectedEndTime.year = year
+            selectedEndTime.month = month
+            selectedEndTime.day = day
         }, year, month, day)
 
         datePickerDialog.show()
@@ -156,11 +181,13 @@ class CreateEntryActivity : AppCompatActivity() {
         val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
             val time = String.format("%02d:%02d", selectedHour, selectedMinute)
             if (isStartTime) {
-                selectedStartTime = time
-                tvStartTime.text = selectedStartTime
+                selectedStartTime.hour = hour
+                selectedStartTime.minute = minute
+                tvStartTime.text = time
             } else {
-                selectedEndTime = time
-                tvEndTime.text = selectedEndTime
+                selectedEndTime.hour = hour
+                selectedEndTime.minute = minute
+                tvEndTime.text = time
             }
         }, hour, minute, true)
 
@@ -172,9 +199,17 @@ class CreateEntryActivity : AppCompatActivity() {
         val description = etDescription.text.toString()
         val projectName = etProject.text.toString()
         val clientName = etClient.text.toString()
-        val minTime = etMinTime.text.toString()
-        val maxTime = etMaxTime.text.toString()
-        val selectedCategory = spinnerCategory.selectedItem.toString()
+        val minTime = etMinTime.text.toString().toIntOrNull() ?: 0
+        val maxTime = etMaxTime.text.toString().toIntOrNull() ?: 0
+
+        if (selectedCategory == null) {
+            Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
+        val entry = EntryData(title, description, selectedCategory!!, Project(projectName), Client(clientName), minTime, maxTime, selectedStartTime, selectedEndTime)
+        EntriesManager.getInstance().addEntry(entry)
 
         Toast.makeText(this, "Entry Submitted!", Toast.LENGTH_SHORT).show()
     }
@@ -183,6 +218,7 @@ class CreateEntryActivity : AppCompatActivity() {
         val newCategory = etNewCategory.text.toString()
 
         if (newCategory.isNotEmpty() && !categoryList.contains(newCategory)) {
+            CategoriesManager.getInstance().addCategory(CategoryData(newCategory))
             categoryList.add(newCategory)
             categoryAdapter.notifyDataSetChanged()
             etNewCategory.text.clear()

@@ -15,6 +15,18 @@ class CategoriesManager private constructor()
 
     public fun addCategory(category: CategoryData)
     {
+        categories.add(category)
+    }
 
+    public fun getCategory(name: String): CategoryData?
+    {
+        for (category in categories)
+        {
+            if (category.name == name)
+            {
+                return category
+            }
+        }
+        return null
     }
 }
