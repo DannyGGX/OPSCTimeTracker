@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="24dp">
 
             <!-- Home Button -->
             <Button
@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toBottomOf="@id/btn_Home"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
             <!-- Title Input -->
             <TextView
@@ -49,7 +49,8 @@
                 android:text="Title"
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_Heading"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
 
             <EditText
                 android:id="@+id/pt_TitleInput"
@@ -60,7 +61,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_TitleLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="16dp" />
 
             <!-- Description Input -->
             <TextView
@@ -71,7 +72,7 @@
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/pt_TitleInput"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
             <EditText
                 android:id="@+id/pt_DescriptionInput"
@@ -82,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_DescriptionLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="16dp" />
 
             <!-- Project Name Input -->
             <TextView
@@ -93,7 +94,7 @@
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/pt_DescriptionInput"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
             <EditText
                 android:id="@+id/pt_Project"
@@ -103,7 +104,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_ProjectLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="16dp" />
 
             <!-- Client Name Input -->
             <TextView
@@ -114,7 +115,7 @@
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/pt_Project"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
             <EditText
                 android:id="@+id/pt_Client"
@@ -124,7 +125,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_ClientLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="16dp" />
 
             <!-- Minimum Time Input -->
             <TextView
@@ -135,7 +136,7 @@
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/pt_Client"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
             <EditText
                 android:id="@+id/pt_MinTimeInput"
@@ -146,7 +147,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_MinTimeLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="16dp" />
 
             <!-- Maximum Time Input -->
             <TextView
@@ -157,7 +158,7 @@
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/pt_MinTimeInput"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
             <EditText
                 android:id="@+id/pt_MaxTimeInput"
@@ -168,7 +169,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_MaxTimeLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="16dp" />
 
             <!-- Category Spinner -->
             <Spinner
@@ -178,7 +179,7 @@
                 app:layout_constraintTop_toBottomOf="@id/pt_MaxTimeInput"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
             <!-- New Category Input -->
             <EditText
@@ -201,18 +202,18 @@
                 app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="24dp" />
 
-            <!-- Create Entry Button (centered at the bottom) -->
+            <!-- Create Entry Button (placed below Add Category button) -->
             <Button
                 android:id="@+id/btn_CreateEntry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Entry"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_AddCategory"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="32dp" />
+                android:layout_marginTop="32dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
