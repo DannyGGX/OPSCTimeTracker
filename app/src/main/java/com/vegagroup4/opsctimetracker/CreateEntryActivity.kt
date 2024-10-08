@@ -1,138 +1,135 @@
 package com.vegagroup4.opsctimetracker
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.*
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import java.util.*
 
 class CreateEntryActivity : AppCompatActivity() {
-    private lateinit var titleInput: EditText
-    private lateinit var descriptionInput: EditText
-    private lateinit var categorySpinner: Spinner
-    private lateinit var newCategoryInput: EditText
-    private lateinit var createEntryButton: Button
-    private lateinit var homeButton: Button
-    private lateinit var addCategoryButton: Button
 
-    private val categories = mutableListOf<String>() // List to hold categories
+    private lateinit var btnSelectDate: Button
+    private lateinit var btnStartTime: Button
+    private lateinit var btnEndTime: Button
+    private lateinit var btnSubmit: Button
+    private lateinit var btnAddCategory: Button
+    private lateinit var tvDate: TextView
+    private lateinit var tvStartTime: TextView
+    private lateinit var tvEndTime: TextView
+    private lateinit var etTitle: EditText
+    private lateinit var etDescription: EditText
+    private lateinit var etProject: EditText
+    private lateinit var etClient: EditText
+    private lateinit var etMinTime: EditText
+    private lateinit var etMaxTime: EditText
+    private lateinit var etNewCategory: EditText
+    private lateinit var spinnerCategory: Spinner
+
+    private var selectedDate: String = ""
+    private var selectedStartTime: String = ""
+    private var selectedEndTime: String = ""
+
+    // Store categories in a mutable list
+    private val categoryList = mutableListOf<String>()
+    private lateinit var categoryAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_create_entry)
+        setContentView(R.layout.activity_create_entry) // Ensure this matches your layout file name
 
-        titleInput = findViewById(R.id.pt_TitleInput)
-        descriptionInput = findViewById(R.id.pt_DescriptionInput)
-        categorySpinner = findViewById(R.id.spinner_Category)
-        newCategoryInput = findViewById(R.id.pt_NewCategoryInput)
-        createEntryButton = findViewById(R.id.btn_CreateEntry)
-        homeButton = findViewById(R.id.btn_Home)
-        addCategoryButton = findViewById(R.id.btn_AddCategory)
+        // Initialize Views
+        btnSelectDate = findViewById(R.id.btn_SelectDate)
+        btnStartTime = findViewById(R.id.btn_StartTime)
+        btnEndTime = findViewById(R.id.btn_EndTime)
+        btnSubmit = findViewById(R.id.btn_Submit)
+        btnAddCategory = findViewById(R.id.btn_AddCategory)
+        tvDate = findViewById(R.id.tv_Date)
+        tvStartTime = findViewById(R.id.tv_StartTime)
+        tvEndTime = findViewById(R.id.tv_EndTime)
+        etTitle = findViewById(R.id.pt_TitleInput)
+        etDescription = findViewById(R.id.pt_DescriptionInput)
+        etProject = findViewById(R.id.pt_Project)
+        etClient = findViewById(R.id.pt_Client)
+        etMinTime = findViewById(R.id.pt_MinTimeInput)
+        etMaxTime = findViewById(R.id.pt_MaxTimeInput)
+        etNewCategory = findViewById(R.id.pt_NewCategoryInput)
+        spinnerCategory = findViewById(R.id.spinner_Category)
 
-        // Initialize categories
-        categories.add("Work")
-        categories.add("Personal")
-        categories.add("Other")
+        // Initialize the category adapter
+        categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList)
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCategory.adapter = categoryAdapter
 
-        // Set up the spinner adapter
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        categorySpinner.adapter = adapter
+        // Set click listeners
+        btnSelectDate.setOnClickListener { showDatePickerDialog() }
+        btnStartTime.setOnClickListener { showTimePickerDialog(true) }
+        btnEndTime.setOnClickListener { showTimePickerDialog(false) }
+        btnSubmit.setOnClickListener { handleSubmit() }
 
-        // Disable the create entry button initially
-        createEntryButton.isEnabled = false
-
-        // Watch for changes in title, description, and category selection to enable the button
-        addTextWatchers()
-
-        createEntryButton.setOnClickListener {
-            // Handle entry creation logic here
-            // Get title, description, and selected category
-            val title = titleInput.text.toString()
-            val description = descriptionInput.text.toString()
-            val selectedCategory = categorySpinner.selectedItem.toString()
-
-            // Add your logic to save the entry here
-
-            // Optionally clear inputs after creation
-            titleInput.text.clear()
-            descriptionInput.text.clear()
-        }
-
-        homeButton.setOnClickListener {
-            // Navigate back to MainMenuActivity
-            finish() // Close current activity to return to the previous one
-        }
-
-        addCategoryButton.setOnClickListener {
-            addNewCategory() // Call the function to add a new category
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        // Set listener for the Add Category button
+        btnAddCategory.setOnClickListener { addCategory() }
     }
 
-    // Function to add a new category
-    private fun addNewCategory() {
-        val newCategory = newCategoryInput.text.toString()
-        if (newCategory.isNotEmpty() && !categories.contains(newCategory)) {
-            categories.add(newCategory)
-            (categorySpinner.adapter as ArrayAdapter<String>).notifyDataSetChanged()
-            newCategoryInput.text.clear() // Clear the input after adding
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            tvDate.text = selectedDate
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
+
+    private fun showTimePickerDialog(isStartTime: Boolean) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+            val time = String.format("%02d:%02d", selectedHour, selectedMinute)
+            if (isStartTime) {
+                selectedStartTime = time
+                tvStartTime.text = selectedStartTime
+            } else {
+                selectedEndTime = time
+                tvEndTime.text = selectedEndTime
+            }
+        }, hour, minute, true)
+
+        timePickerDialog.show()
+    }
+
+    private fun handleSubmit() {
+        val title = etTitle.text.toString()
+        val description = etDescription.text.toString()
+        val projectName = etProject.text.toString()
+        val clientName = etClient.text.toString()
+        val minTime = etMinTime.text.toString()
+        val maxTime = etMaxTime.text.toString()
+        val selectedCategory = spinnerCategory.selectedItem.toString()
+
+        // Handle submission logic here (e.g., save the entry to the database or send it to another activity)
+        // For demonstration, just show a toast or log the values
+        Toast.makeText(this, "Entry Submitted!", Toast.LENGTH_SHORT).show()
+        // Log.d("CreateEntryActivity", "Title: $title, Date: $selectedDate, Start Time: $selectedStartTime, End Time: $selectedEndTime")
+    }
+
+    private fun addCategory() {
+        val newCategory = etNewCategory.text.toString()
+
+        // Add the new category if it's not empty and not already in the list
+        if (newCategory.isNotEmpty() && !categoryList.contains(newCategory)) {
+            categoryList.add(newCategory)
+            categoryAdapter.notifyDataSetChanged() // Notify the adapter to update the spinner
+            etNewCategory.text.clear() // Clear the input field
+            Toast.makeText(this, "Category added", Toast.LENGTH_SHORT).show()
         } else {
-            // Optionally show a message that the category already exists
+            Toast.makeText(this, "Category is empty or already exists", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    // Function to enable/disable the Create Entry button based on input validation
-    private fun addTextWatchers() {
-        val textWatcher = object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                validateInput()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        }
-
-        // Add text watchers to the relevant input fields
-        titleInput.addTextChangedListener(textWatcher)
-        descriptionInput.addTextChangedListener(textWatcher)
-        newCategoryInput.addTextChangedListener(textWatcher)
-
-        // Set up the spinner's onItemSelectedListener
-        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: android.view.View?,
-                position: Int,
-                id: Long
-            ) {
-                validateInput()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                validateInput()
-            }
-        }
-    }
-
-    // Input validation function to enable/disable Create Entry button
-    private fun validateInput() {
-        // Get current input values
-        val title = titleInput.text.toString().trim()
-        val description = descriptionInput.text.toString().trim()
-        val selectedCategory = categorySpinner.selectedItem.toString()
-
-        // Check if the required fields are filled out
-        createEntryButton.isEnabled = title.isNotEmpty() && description.isNotEmpty() && selectedCategory.isNotEmpty()
     }
 }
