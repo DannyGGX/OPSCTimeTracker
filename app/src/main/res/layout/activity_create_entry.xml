@@ -7,116 +7,215 @@
     android:layout_height="match_parent"
     tools:context=".CreateEntryActivity">
 
-    <TextView
-        android:id="@+id/tv_Heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create New Entry"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+    <!-- ScrollView to wrap the content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/pt_TitleInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter Title"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/tv_Heading"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
 
-    <EditText
-        android:id="@+id/pt_DescriptionInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter Description"
-        android:inputType="textMultiLine"
-        app:layout_constraintTop_toBottomOf="@id/pt_TitleInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp" />
+            <!-- Home Button -->
+            <Button
+                android:id="@+id/btn_Home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/home_icon"
+                android:text="Home"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/pt_ProjectInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter Project Name"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/pt_DescriptionInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp" />
+            <!-- Page Heading -->
+            <TextView
+                android:id="@+id/tv_Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create New Entry"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/btn_Home"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp" />
 
-    <EditText
-        android:id="@+id/pt_ClientInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Enter Client Name"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/pt_ProjectInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp" />
+            <!-- Title Input -->
+            <TextView
+                android:id="@+id/tv_TitleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_Heading"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
 
-    <Spinner
-        android:id="@+id/spinner_Category"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/pt_ClientInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp" />
+            <EditText
+                android:id="@+id/pt_TitleInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Title"
+                android:inputType="text"
+                app:layout_constraintTop_toBottomOf="@id/tv_TitleLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
 
-    <EditText
-        android:id="@+id/pt_NewCategoryInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Add New Category"
-        app:layout_constraintTop_toBottomOf="@id/spinner_Category"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp" />
+            <!-- Description Input -->
+            <TextView
+                android:id="@+id/tv_DescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/pt_TitleInput"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
 
-    <Button
-        android:id="@+id/btn_AddCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Category"
-        app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+            <EditText
+                android:id="@+id/pt_DescriptionInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Description"
+                android:inputType="textMultiLine"
+                app:layout_constraintTop_toBottomOf="@id/tv_DescriptionLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/btn_Home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTop="@drawable/home_icon"
-        android:text="Home"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"/>
+            <!-- Project Name Input -->
+            <TextView
+                android:id="@+id/tv_ProjectLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Project Name"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/pt_DescriptionInput"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
 
-    <Button
-        android:id="@+id/btn_CreateEntry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Entry"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="1"
-        android:layout_marginBottom="32dp" />
+            <EditText
+                android:id="@+id/pt_Project"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Project Name"
+                app:layout_constraintTop_toBottomOf="@id/tv_ProjectLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+            <!-- Client Name Input -->
+            <TextView
+                android:id="@+id/tv_ClientLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Client Name"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/pt_Project"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <EditText
+                android:id="@+id/pt_Client"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Client Name"
+                app:layout_constraintTop_toBottomOf="@id/tv_ClientLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+            <!-- Minimum Time Input -->
+            <TextView
+                android:id="@+id/tv_MinTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Min Time (hours)"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/pt_Client"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <EditText
+                android:id="@+id/pt_MinTimeInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Minimum Time"
+                android:inputType="number"
+                app:layout_constraintTop_toBottomOf="@id/tv_MinTimeLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+            <!-- Maximum Time Input -->
+            <TextView
+                android:id="@+id/tv_MaxTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max Time (hours)"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/pt_MinTimeInput"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <EditText
+                android:id="@+id/pt_MaxTimeInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter Maximum Time"
+                android:inputType="number"
+                app:layout_constraintTop_toBottomOf="@id/tv_MaxTimeLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+            <!-- Category Spinner -->
+            <Spinner
+                android:id="@+id/spinner_Category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/pt_MaxTimeInput"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <!-- New Category Input -->
+            <EditText
+                android:id="@+id/pt_NewCategoryInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Enter New Category"
+                android:inputType="text"
+                app:layout_constraintTop_toBottomOf="@id/spinner_Category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+            <!-- Add Category Button -->
+            <Button
+                android:id="@+id/btn_AddCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Category"
+                app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <!-- Create Entry Button (placed below Add Category button) -->
+            <Button
+                android:id="@+id/btn_CreateEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Entry"
+                app:layout_constraintTop_toBottomOf="@id/btn_AddCategory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="32dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
