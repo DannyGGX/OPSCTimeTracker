@@ -11,5 +11,10 @@ class CategoriesManager private constructor()
             }
     }
 
+    var categories = mutableListOf<CategoryData>()
 
+    public fun addCategory(category: CategoryData)
+    {
+
+    }
 }

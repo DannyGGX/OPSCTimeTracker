@@ -69,6 +69,8 @@ class CreateEntryActivity : AppCompatActivity() {
 
         // Set listener for the Add Category button
         btnAddCategory.setOnClickListener { addCategory() }
+
+
     }
 
     private fun showDatePickerDialog() {
