@@ -1,11 +1,17 @@
 package com.vegagroup4.opsctimetracker
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.util.*
 
 class CreateEntryActivity : AppCompatActivity() {
@@ -28,9 +34,15 @@ class CreateEntryActivity : AppCompatActivity() {
     private lateinit var etNewCategory: EditText
     private lateinit var spinnerCategory: Spinner
 
+    private lateinit var btnTakePhoto: Button
+    private lateinit var imgPhoto: ImageView
+
     private var selectedDate: String = ""
     private var selectedStartTime: String = ""
     private var selectedEndTime: String = ""
+
+    private val CAMERA_REQUEST_CODE = 100
+    private val CAMERA_PERMISSION_CODE = 101
 
     // Store categories in a mutable list
     private val categoryList = mutableListOf<String>()
@@ -59,6 +71,9 @@ class CreateEntryActivity : AppCompatActivity() {
         etNewCategory = findViewById(R.id.pt_NewCategoryInput)
         spinnerCategory = findViewById(R.id.spinner_Category)
 
+        btnTakePhoto = findViewById(R.id.btn_TakePhoto)
+        imgPhoto = findViewById(R.id.img_Photo)
+
         // Initialize the category adapter
         categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList)
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -75,6 +90,48 @@ class CreateEntryActivity : AppCompatActivity() {
 
         // Handle Home button click
         btnHome.setOnClickListener { navigateToHome() }
+
+        // Set camera button click listener
+        btnTakePhoto.setOnClickListener { checkCameraPermission() }
+    }
+
+    // Camera permission handling
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            // Permission is already granted
+            openCamera()
+        } else {
+            // Request the camera permission
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
+        }
+    }
+
+    // Handle permission request result
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, open the camera
+                openCamera()
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    // Open the camera to take a photo
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+    }
+
+    // Handle the result of the camera activity
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            val photo: Bitmap = data?.extras?.get("data") as Bitmap
+            imgPhoto.setImageBitmap(photo)  // Display the photo in the ImageView
+        }
     }
 
     private fun showDatePickerDialog() {
