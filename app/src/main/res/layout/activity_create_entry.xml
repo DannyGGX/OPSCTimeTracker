@@ -218,7 +218,7 @@
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pt_NewCategoryInput" />
+                app:layout_constraintTop_toBottomOf="@id/btn_AddCategory" />
 
             <Button
                 android:id="@+id/btn_SelectDate"
