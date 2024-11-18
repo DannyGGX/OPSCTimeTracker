@@ -16,5 +16,9 @@ object UserManager
         return user
     }
 
+    fun getUserId(): String? {
+        return user?.id
+    }
+
 
 }
