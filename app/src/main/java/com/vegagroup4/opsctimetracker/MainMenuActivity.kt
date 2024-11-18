@@ -38,6 +38,11 @@ class MainMenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
         */
+        binding.btnListOfEntries.setOnClickListener {
+            val intent = Intent(this, EntriesListActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.btnEntries.setOnClickListener {
             val intent = Intent(this, CreateEntryActivity::class.java)
