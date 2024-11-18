@@ -209,7 +209,7 @@ class CreateEntryActivity : AppCompatActivity() {
 
 
         val entry = EntryData(title, description, selectedCategory!!, Project(projectName), Client(clientName), minTime, maxTime, selectedStartTime, selectedEndTime)
-        EntriesManager.getInstance().addEntry(entry)
+        EntriesManager.getInstance().addEntry(entry, this@CreateEntryActivity)
 
         Toast.makeText(this, "Entry Submitted!", Toast.LENGTH_SHORT).show()
     }
