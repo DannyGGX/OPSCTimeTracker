@@ -35,6 +35,7 @@ class EntriesManager private constructor()
     {
         val user: UserData? = UserManager.get()
 
+
         entries.add(entry)
         databaseRef.child(user!!.id!!).child("entries").push().setValue(entry)
             .addOnSuccessListener {

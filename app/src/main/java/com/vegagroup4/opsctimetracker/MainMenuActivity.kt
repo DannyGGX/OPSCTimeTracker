@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.vegagroup4.opsctimetracker.User.UserManager
 import com.vegagroup4.opsctimetracker.databinding.ActivityMainMenuBinding
 
 class MainMenuActivity : AppCompatActivity() {
@@ -65,5 +66,8 @@ class MainMenuActivity : AppCompatActivity() {
         }
 
          */
+
+        // Add the logged in user name
+        binding.txtWelcometext.text = "Welcome, ${UserManager.get()?.username}"
     }
 }
