@@ -25,26 +25,26 @@ class EntriesManager private constructor()
 
     init {
         database = FirebaseDatabase.getInstance()
-
-
+        databaseRef = database.reference
     }
 
     var entries = mutableListOf<EntryData>()
 
     public fun addEntry(entry: EntryData, context: Context)
     {
-        val user: UserData? = UserManager.get()
+        val userId = UserManager.get()?.id
 
 
         entries.add(entry)
-        databaseRef.child(user!!.id!!).child("entries").push().setValue(entry)
+        val entriesRef = databaseRef.child("users").child(userId!!).child("entries")
+        entriesRef.push().setValue(entry)
             .addOnSuccessListener {
                 Toast.makeText(context, "Entry added", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(context, "Failed to add entry", Toast.LENGTH_SHORT).show()
             }
-//        val entryRef = databaseRef.child(user.id!!).child("entries").child(entry.title)
+
 //        entryRef.push().setValue(entry.description)
 //
 //        entryRef.push().setValue(entry.category.name)
