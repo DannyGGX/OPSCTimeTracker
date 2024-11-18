@@ -74,6 +74,7 @@ class LoginActivity : AppCompatActivity()
                         if (userData != null && userData.password == password)
                         {
                             Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                            UserManager.signIn(userData)
                             startActivity(Intent(this@LoginActivity, MainMenuActivity::class.java))
                             finish()
                             return
