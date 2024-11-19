@@ -52,11 +52,11 @@ class EntriesListActivity : AppCompatActivity()
         binding.btnCreateNewEntry.setOnClickListener {
             val intent = Intent(this, CreateEntryActivity::class.java)
             startActivity(intent)
+            finish()
         }
-
         binding.recyclerView.adapter = EntriesListAdapter(entriesList)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        //binding.recyclerView.setHasFixedSize(true) // probably not needed
+        binding.recyclerView.setHasFixedSize(true) // probably not needed
 
         databaseRef = FirebaseDatabase.getInstance().reference.child("users").child(UserManager.getUserId()!!).child("entries")
 
@@ -69,6 +69,7 @@ class EntriesListActivity : AppCompatActivity()
                     val entry = readEntryFromDatabase(entrySnapshot)
                     entriesList.add(entry)
                 }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -76,20 +77,35 @@ class EntriesListActivity : AppCompatActivity()
             }
         })
 
+
     }
     
     private fun readEntryFromDatabase(entrySnapshot: DataSnapshot): EntryData
     {
-        // Initialise empty entry
-        var entry = EntryData("", "", CategoryData(""), Project(""), Client(""), 0, 0, DateTimeData(0, 0, 0, 0, 0), DateTimeData(0, 0, 0, 0, 0))
-
-        entry.title = entrySnapshot.child("title").getValue(String::class.java) ?: ""
-        //entry.category.name = entrySnapshot.child("category/name").getValue(String::class.java) ?: ""
-        //entry.category.color = entrySnapshot.child("category/color").getValue(Int::class.java) ?: Color.RED
-        entry.project = entrySnapshot.child("project").getValue(Project::class.java) ?: Project("")
-        entry.startTime = entrySnapshot.child("startTime").getValue(DateTimeData::class.java) ?: DateTimeData(0, 0, 0, 0, 0)
-        entry.endTime = entrySnapshot.child("endTime").getValue(DateTimeData::class.java) ?: DateTimeData(0, 0, 0, 0, 0)
+        val entry = EntryData(
+            entrySnapshot.child("title").getValue(String::class.java) ?: "",
+            "",
+            CategoryData(
+                entrySnapshot.child("category").child("name").getValue(String::class.java) ?: "",
+                entrySnapshot.child("category").child("color").getValue(Int::class.java) ?: Color.RED
+            ),
+            Project(entrySnapshot.child("project").child("name").getValue(String::class.java) ?: ""),
+            Client(""),
+            0,
+            0,
+            getDateTimeFromDatabase(entrySnapshot.child("startTime")),
+            getDateTimeFromDatabase(entrySnapshot.child("endTime"))
+        )
         return entry
+    }
+    private fun getDateTimeFromDatabase(dateTimeSnapshot: DataSnapshot): DateTimeData
+    {
+        val day = dateTimeSnapshot.child("day").getValue(Int::class.java) ?: 0
+        val hour = dateTimeSnapshot.child("hour").getValue(Int::class.java) ?: 0
+        val minute = dateTimeSnapshot.child("minute").getValue(Int::class.java) ?: 0
+        val month = dateTimeSnapshot.child("month").getValue(Int::class.java) ?: 0
+        val year = dateTimeSnapshot.child("year").getValue(Int::class.java) ?: 0
+        return DateTimeData(year, month, day, hour, minute)
     }
 
 
