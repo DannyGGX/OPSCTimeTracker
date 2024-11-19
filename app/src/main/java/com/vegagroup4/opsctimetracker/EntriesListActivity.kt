@@ -105,7 +105,7 @@ class EntriesListActivity : AppCompatActivity()
         val minute = dateTimeSnapshot.child("minute").getValue(Int::class.java) ?: 0
         val month = dateTimeSnapshot.child("month").getValue(Int::class.java) ?: 0
         val year = dateTimeSnapshot.child("year").getValue(Int::class.java) ?: 0
-        return DateTimeData(day, hour, minute, month, year)
+        return DateTimeData(year, month, day, hour, minute)
     }
 
 
