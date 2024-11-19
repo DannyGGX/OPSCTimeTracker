@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.vegagroup4.opsctimetracker.User.AnalyticsActivity
 import com.vegagroup4.opsctimetracker.User.UserManager
 import com.vegagroup4.opsctimetracker.databinding.ActivityMainMenuBinding
 
@@ -33,12 +34,12 @@ class MainMenuActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
-
-        binding.btnCalender.setOnClickListener {
-            val intent = Intent(this, CalendarActivity::class.java)
+        */
+        binding.btnAnalytics.setOnClickListener {
+            val intent = Intent(this, AnalyticsActivity ::class.java)
             startActivity(intent)
         }
-        */
+
         binding.btnListOfEntries.setOnClickListener {
             val intent = Intent(this, EntriesListActivity::class.java)
             startActivity(intent)
