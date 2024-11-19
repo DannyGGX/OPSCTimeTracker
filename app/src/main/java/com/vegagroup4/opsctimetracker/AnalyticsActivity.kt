@@ -7,13 +7,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.LimitLine
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.vegagroup4.opsctimetracker.R
 import java.text.SimpleDateFormat
@@ -21,7 +19,7 @@ import java.util.*
 
 class AnalyticsActivity : AppCompatActivity() {
 
-    private lateinit var lineChart: LineChart
+    private lateinit var barChart: BarChart
     private lateinit var btnSaveHours: Button
     private lateinit var btnSelectDateRange: Button
     private lateinit var etHoursWorked: EditText
@@ -34,13 +32,13 @@ class AnalyticsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_analytics)
 
         // Initialize views
-        lineChart = findViewById(R.id.lineChart)
+        barChart = findViewById(R.id.barChart)
         btnSaveHours = findViewById(R.id.btnSaveHours)
         btnSelectDateRange = findViewById(R.id.btnSelectDateRange)
         etHoursWorked = findViewById(R.id.etHoursWorked)
         tvSelectedDate = findViewById(R.id.tvSelectedDate)
 
-        setupLineChart()
+        setupBarChart()
 
         btnSaveHours.setOnClickListener {
             saveHours()
@@ -86,72 +84,45 @@ class AnalyticsActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    private fun setupLineChart() {
-        lineChart.xAxis.apply {
+    private fun setupBarChart() {
+        barChart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
             setDrawGridLines(false)
             granularity = 1f
         }
-        lineChart.axisLeft.apply {
-            setDrawGridLines(true)
-            axisMinimum = 0f
-        }
-        lineChart.axisRight.isEnabled = false
-        lineChart.description.isEnabled = false
+        barChart.axisLeft.axisMinimum = 0f
+        barChart.axisRight.isEnabled = false
+        barChart.description.isEnabled = false
     }
 
     private fun updateChart() {
         // Group by date and sum hours worked for each date
         val aggregatedData = hoursWorkedData
-            .groupBy { it.first }  // Group by date (String)
+            .groupBy { it.first }
             .map { (date, entries) ->
-                date to entries.sumOf { it.second.toDouble() }.toFloat()  // Explicit type handling
+                date to entries.sumOf { it.second.toDouble() }.toFloat()
             }
-            .sortedBy { it.first }  // Sort by date
+            .sortedBy { it.first }
 
-        // Convert aggregated data into chart entries
+        // Convert aggregated data into bar entries
         val entries = aggregatedData.mapIndexed { index, data ->
-            Entry(index.toFloat(), data.second)
+            BarEntry(index.toFloat(), data.second)
         }
 
         // Create dataset and style it
-        val lineDataSet = LineDataSet(entries, "Hours Worked").apply {
+        val barDataSet = BarDataSet(entries, "Hours Worked").apply {
             color = ContextCompat.getColor(this@AnalyticsActivity, R.color.teal_700)
             valueTextColor = ContextCompat.getColor(this@AnalyticsActivity, R.color.black)
-            lineWidth = 2f
-            setCircleColor(ContextCompat.getColor(this@AnalyticsActivity, R.color.teal_700))
-            circleRadius = 4f
-            mode = LineDataSet.Mode.CUBIC_BEZIER  // Smooth line style (optional)
         }
 
         // Bind data to chart
-        lineChart.data = LineData(lineDataSet)
-
-        // Calculate Y-axis range dynamically
-        val yValues = entries.map { it.y }
-        val minY = yValues.minOrNull() ?: 0f
-        val maxY = yValues.maxOrNull() ?: 0f
-        val buffer = (maxY - minY) * 0.1f  // Add a 10% buffer for padding
-
-        // Set Y-axis range
-        val leftAxis: YAxis = lineChart.axisLeft
-        leftAxis.axisMinimum = minY - buffer
-        leftAxis.axisMaximum = maxY + buffer
-
-        // Disable right Y-axis (optional)
-        lineChart.axisRight.isEnabled = false
+        barChart.data = BarData(barDataSet)
 
         // Customize X-axis to show dates
-        val xAxis: XAxis = lineChart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f  // Ensure labels align with data points
-        xAxis.valueFormatter = IndexAxisValueFormatter (aggregatedData.map { it.first })  // Use dates as labels
+        val xAxis: XAxis = barChart.xAxis
+        xAxis.valueFormatter = IndexAxisValueFormatter(aggregatedData.map { it.first })
 
         // Refresh chart
-        lineChart.invalidate()
+        barChart.invalidate()
     }
-
-
-
 }
