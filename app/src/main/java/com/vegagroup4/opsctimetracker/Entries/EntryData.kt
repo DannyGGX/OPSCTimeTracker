@@ -15,4 +15,6 @@ data class EntryData
     var maxTimeGoal: Int = 0,
     var startTime: DateTimeData,
     var endTime: DateTimeData,
+    var isCompleted: Boolean = false,
+
 )
