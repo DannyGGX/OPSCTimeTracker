@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.vegagroup4.opsctimetracker.R
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class EntriesListAdapter(private val entriesList: List<EntryData>) : RecyclerView.Adapter<EntriesListAdapter.ViewHolder>()
 {
@@ -30,14 +32,19 @@ class EntriesListAdapter(private val entriesList: List<EntryData>) : RecyclerVie
         holder.titleTextView.text = currentItem.title
         holder.projectTextView.text = currentItem.project.name
         holder.categoryTextView.text = currentItem.category.name
-        holder.startTimeTextView.text = currentItem.startTime.toString()
-        holder.endTimeTextView.text = currentItem.endTime.toString()
+        holder.startTimeTextView.text = formatDateTime(currentItem.startTime)
+        holder.endTimeTextView.text = formatDateTime(currentItem.endTime)
     }
 
     override fun getItemCount(): Int {
         return entriesList.size
     }
 
-    // TODO: Format the start and end time and append their dates together somewhere in here for being displayed
-
+    private fun formatDateTime(dateTime: DateTimeData): String
+    {
+        // TODO: Fix DateTime format not working
+        // val dateFormat = SimpleDateFormat("dd/MMM/yyyy hh:mm", Locale.getDefault())
+        // return dateFormat.format(dateTime)
+        return "${dateTime.day}/${dateTime.month}/${dateTime.year} | ${dateTime.hour}:${dateTime.minute}"
+    }
 }
